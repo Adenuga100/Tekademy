@@ -26,7 +26,6 @@ When('User enter valid email as {string}', async function (email: string)   {
 When('User click on login button', async () => {
   // Write code here that turns the phrase above into concrete actions
   await loginPage.clickLoginButton();
-  
 })
 
 
@@ -37,11 +36,50 @@ Then('I should be redirected to the dashboard', async () => {
 
 When('User click on remember me checkbox', () => {
   // Write code here that turns the phrase above into concrete actions
-   loginPage.clickRememberMeCheckbox();
+  loginPage.clickRememberMeCheckbox();
 })
 
 Then('user receive error message as {string}', async (expectedMessage: string) => {
   // Write code here that turns the phrase above into concrete actions
    await expect( await loginPage.errorMessage(expectedMessage)).toHaveText(expectedMessage);
+})
+
+When('User click on {string} menu', async (menus: string) => {
+  await loginPage.clickMenu(menus);
+})
+
+When('User click on {string} button', async (btn: string) => {
+  // Write code here that turns the phrase above into concrete actions
+ await loginPage.clickButton(btn);
+})
+
+When('User enter first name', async () => {
+  // Write code here that turns the phrase above into concrete actions
+ await loginPage.enterFirstName();
+})
+
+When('User enter email as', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.randonmEmail();
+})
+
+When('User enter last name', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.enterLastName();
+})
+
+When('User select any role', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.selectRole();
+})
+
+When('User enter DOB', async  () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.enterDOB();
+})
+
+When('User enter strong password as {string}', async (psw: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.password(psw);
 })
 
