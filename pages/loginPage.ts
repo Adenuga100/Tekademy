@@ -19,7 +19,7 @@ export class LoginPage {
  strongPassword = () => this.page.locator('input[id="user-password"]');
  randomemail = () => this.page.locator('input[id="user-email"]');
  errorLocator = (expectedMessage: string) => this.page.getByText(expectedMessage);
-
+success = (successmessage: string) => this.page.getByText(successmessage);
   menuButton = (menu: string) => 
     this.page.locator(`span:has-text("${menu}")`);
 //span[text()="${menu}"]
@@ -128,6 +128,11 @@ async selectRole(numberToClick: number = 1) {
     async errorMessage(expectedMessage: string): Promise<Locator> {
         
         return await this.errorLocator(expectedMessage);
+    }
+
+    async successFulMessage(successmessage: string): Promise<Locator> {
+        
+        return await this.success(successmessage);
     }
 
 }

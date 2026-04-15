@@ -88,3 +88,8 @@ When('User enter invalid email as {string}', async (email: string) => {
   await loginPage.enterEmail(email);
 })
 
+Then('User should see a success message {string}', async (successmessage: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await expect( await loginPage.successFulMessage(successmessage)).toHaveText(successmessage);
+})
+
