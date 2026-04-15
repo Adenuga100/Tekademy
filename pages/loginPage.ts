@@ -35,7 +35,7 @@ success = (successmessage: string) => this.page.getByText(successmessage);
     }
   // Actions
   async navigate() {
-    await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
+    return await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
   }
 
     async enterPassword(password: string) {
