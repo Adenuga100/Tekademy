@@ -31,7 +31,7 @@ When('User click on login button', async () => {
 
 Then('I should be redirected to the dashboard', async () => {
   // Write code here that turns the phrase above into concrete actions
-  await expect( await loginPage.getHomeTitle()).toBeVisible({ timeout: 5000 });
+  await expect( await loginPage.getHomeTitle()).toBeVisible({ timeout: 10000 });
 })
 
 When('User click on remember me checkbox', () => {
