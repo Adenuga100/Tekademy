@@ -83,3 +83,8 @@ When('User enter strong password as {string}', async (psw: string) => {
   await loginPage.password(psw);
 })
 
+When('User enter invalid email as {string}', async (email: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.enterEmail(email);
+})
+
