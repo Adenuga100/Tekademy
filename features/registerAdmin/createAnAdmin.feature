@@ -27,7 +27,7 @@ Feature: Create an Admin
     And User enter last name
     And User enter email as 
     And User enter strong password as "Password123!"
-    #And User enter DOB
+    And User enter DOB
     And User select any role
     And User click on "Add User" button
     Then User should see a success message "User created successfully"

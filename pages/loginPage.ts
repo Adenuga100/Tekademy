@@ -15,7 +15,7 @@ export class LoginPage {
  firstNameInput = () => this.page.locator('[id="user-firstName"]');
  pickROles = () => this.page.locator('div[class="space-y-2"] [type="button"]');
  lastNameInput = () => this.page.locator('[id="user-lastName"]');
- dOB = () => this.page.locator('input[id="user-dateOfBirth"]');
+ dOB = () => this.page.getByRole('textbox', { name: 'Date of birth (optional)' });
  strongPassword = () => this.page.locator('input[id="user-password"]');
  randomemail = () => this.page.locator('input[id="user-email"]');
  errorLocator = (expectedMessage: string) => this.page.getByText(expectedMessage);
@@ -27,11 +27,17 @@ success = (successmessage: string) => this.page.getByText(successmessage);
     generateRandomName() { 
         const firstNames = ["Alex", "Jordan", "Taylor", "Casey", "Morgan"];
         const lastNames = ["Smith", "Johnson", "Reed", "Walker", "Knight"];
+        const years = ["2000", "1991", "2001", "2002", "2003","2005"];
+        const months = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12"];
+        const dates = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
 
         const first = firstNames[Math.floor(Math.random() * firstNames.length)];
         const last = lastNames[Math.floor(Math.random() * lastNames.length)];
+        const year = years[Math.floor(Math.random() * years.length)];
+        const month = months[Math.floor(Math.random() * months.length)];
+        const date = dates[Math.floor(Math.random() * dates.length)];
 
-        return { first, last };
+        return { first, last , year, month,date};
     }
   // Actions
   async navigate() {
@@ -96,9 +102,12 @@ async selectRole(numberToClick: number = 1) {
     }
 
     async enterDOB() {
-        // let {last} = this.generateRandomName();
+        let {year} = this.generateRandomName();
+        let {month} = this.generateRandomName();
+        let {date} = this.generateRandomName();
 
-      return await this.dOB().fill('02/02/2000');
+      return await this.dOB().fill(`${year}-${month}-${date}`);
+
       
     }
 
