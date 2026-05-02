@@ -136,3 +136,16 @@ Scenario: upload library resource  with empty url
   And User enter fileUrl as "https://example.com/testfile.pdf"
   And User click on x button
   Then User should be redirected to library page
+@11
+  Scenario: upload library resource video successfully
+    When User click on "Library" menu
+    And User click on "Upload Resource" button
+    And User enter title as "Test Resource"
+    And User select category as "Tester"
+    And User enter description as "This is a test resource"
+    And User enter tags as "test, resource"
+    And User upload file "C:\Users\NUGA\Pictures\Camera Roll\WIN_20260115_03_11_12_Pro.mp4"
+    And User click fileUrl and isPublished
+    And User enter fileUrl as "https://example.com/testfile.pdf"
+    And User click on Add Resource button
+    Then User should see a success message "Resource uploaded"

@@ -128,5 +128,30 @@ When('User click on x button', async () => {
   await loginPage.close();
 })
 
+Then('User should see the search result with title', async () => {
+  // Write code here that turns the phrase above into concrete actions
+   await expect( await loginPage.resultTitle()).toBeVisible({ timeout: 5000 });
+})
+
+When('User enter title or url as {string}', async (titleorurl: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.enterSearchTerm(titleorurl);
+})
+
+When('User select {string} option', async (option: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.selectSearchOption(option);
+})
+
+Then('User should see the search results resources', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await expect( await loginPage.resultOptions()).toBeVisible({ timeout: 5000 });
+})
+
+When('User click on {string} dropdown', async (drop: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.clickSearchDropdown(drop);
+})
+
 
 

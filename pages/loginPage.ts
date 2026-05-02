@@ -13,6 +13,9 @@ export class LoginPage {
   fillTitle = () => this.page.locator('input[id="resource-title"]');
   clickAddResource = () => this.page.locator('button[type="submit"]');
   unCheck = () => this.page.locator('input[type="checkbox"]');
+  fillTittleOrUrl = () => this.page.locator('input[placeholder="Search resources by title or URL..."]');
+  selectOptionLocator = (options: string) => this.page.getByRole('option', { name: `${options}` }).first(); // Adjust the locator as needed
+  selectOption = () => this.page.locator('select[id="resource-category"]');
   closeX = () => this.page.locator('button[data-slot="dialog-close"]');
   fillDescription = () => this.page.locator('textarea[id="resource-description"]');
   fillTags = () => this.page.locator('input[id="resource-tags"]');
@@ -22,8 +25,11 @@ export class LoginPage {
   category = () => this.page.locator('//button[@id="resource-category"]/following-sibling::select');
   homeTitle = () => this.page.locator('img[class="object-contain w-full"]');
  clickBtn = (btn: string) => this.page.locator(`button:has-text("${btn}")`);
+ clickDropdownse = (drop: string) => this.page.getByRole('combobox').filter({ hasText: `${drop}` });
  errorLocator = (expectedMessage: string) => this.page.getByText(expectedMessage);
   success = (successmessage: string) => this.page.getByText(successmessage);
+  resultTitles = (titleorurl: string) => this.page.locator('p[class="font-medium text-[#111827]"]').first();
+  resultOption = (option: string) => this.page.locator(`//td[@data-slot="table-cell"]//span[text()='${option}']`).first();
   libraryPages = () => this.page.getByText('Library & Resources');
   menuButton = (menu: string) => 
     this.page.locator(`span:has-text("${menu}")`);
@@ -92,6 +98,16 @@ export class LoginPage {
         return await this.success(successmessage);
     }
 
+    async resultTitle(): Promise<Locator> {
+        
+        return await this.resultTitles(this.storedTitleOrUrl);
+    }
+
+    async resultOptions(): Promise<Locator> {
+        
+        return await this.resultOption(this.storedOption);
+    }
+
     async libraryPage(): Promise<Locator> {
         
         return await this.libraryPages();
@@ -118,11 +134,36 @@ export class LoginPage {
         return await this.closeX().click();
     }
 
-
-
-    async selectCategory(category: string) {
-        return await this.category().selectOption({ label: category });
+    async clickSearchDropdown(drop: string) {
+      
+        return await this.clickDropdownse(drop).click();
     }
+    
+
+storedTitleOrUrl: string = '';
+
+async enterSearchTerm(titleorurl: string) {
+
+    await this.fillTittleOrUrl().fill(titleorurl);
+
+    this.storedTitleOrUrl = await this.fillTittleOrUrl().getAttribute('value') || '';
+}
+
+storedOption: string = '';
+
+
+async selectSearchOption(option: string) {
+    // Click the element using the locator
+    await this.selectOptionLocator(option).click();
+
+    // Store the value you just clicked for verification later
+    this.storedOption = option; 
+  }
+
+
+async selectCategory(category: string) {
+     return await this.category().selectOption({ label: category });
+}
 
     async enterDescription(description: string) {
         await this.fillDescription().scrollIntoViewIfNeeded();
