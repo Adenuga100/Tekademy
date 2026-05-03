@@ -29,6 +29,14 @@ When('User click on login button', async () => {
   
 })
 
+When('User click on {string} button', async (btn: string) => {
+  // Write code here that turns the phrase above into concrete actions
+ await loginPage.clickButton(btn);
+})
+
+When('User click on {string} menu', async (menus: string) => {
+  await loginPage.clickMenu(menus);
+})
 
 Then('I should be redirected to the dashboard', async () => {
   // Write code here that turns the phrase above into concrete actions
