@@ -23,18 +23,19 @@ export class LoginPage {
 
       generateRandomName() { 
 
-        const durations = ["15","30", "40", "45", "60","90","120"];
+        const durations = ["15","30", "40", "60","90","120"];
         const mins = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
         const hours = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
-        // const dates = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
+         const newdates = ["1", "2", "3", "4", "5","4","5", "6", "7"];
         // const dates = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
 
         const duration = durations[Math.floor(Math.random() * durations.length)];
         const min = mins[Math.floor(Math.random() * mins.length)];
         const hour = hours[Math.floor(Math.random() * hours.length)];
+        const newdate = newdates[Math.floor(Math.random() * newdates.length)];
        
 
-        return { duration, min, hour };
+        return { duration, min, hour, newdate };
     }
 
     async navigate() {
@@ -79,10 +80,11 @@ export class LoginPage {
     }
 
     async selectDate() {
+        let {newdate} = this.generateRandomName();
         const date = new Date();
-
+    
       // Add 2 days (day after tomorrow)
-      date.setDate(date.getDate() + 2);
+      date.setDate(date.getDate() + parseInt(`${newdate}`));
 
      // Format as YYYY-MM-DD
       const formattedDate = date.toISOString().split('T')[0];
