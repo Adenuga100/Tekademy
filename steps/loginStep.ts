@@ -43,13 +43,39 @@ Then('I should be redirected to the dashboard', async () => {
   await expect( await loginPage.getHomeTitle()).toBeVisible({ timeout: 5000 });
 })
 
-When('User click on remember me checkbox', () => {
+When('User click on remember me checkbox', async () => {
   // Write code here that turns the phrase above into concrete actions
-   loginPage.clickRememberMeCheckbox();
+   await loginPage.clickRememberMeCheckbox();
 })
 
 Then('user receive error message as {string}', async (expectedMessage: string) => {
   // Write code here that turns the phrase above into concrete actions
    await expect( await loginPage.errorMessage(expectedMessage)).toHaveText(expectedMessage);
+})
+
+When('User enter time', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.picktimes();
+})
+
+
+When('User enter duration', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.selectDuration();
+})
+
+When('User enter class title as {string}', async (classtitle: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.classTitle(classtitle);
+})
+
+Then('User should see a success message {string}', async (successmessage: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await expect( await loginPage.successFulMessage(successmessage)).toHaveText(successmessage);
+})
+
+When('User enter date', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.selectDate();
 })
 
