@@ -20,29 +20,29 @@ export class LoginPage {
         await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
     }
 
-    async enterPassword(password: string) {
+    async enterPassword(password: string): Promise<void> {
         return await this.passwordInput().fill(password);
     }
 
-    async enterEmail(email: string) {
+    async enterEmail(email: string): Promise<void> {
         return await this.emailInput().fill(email);
     }
 
-    async forgetPassword(forgotpsw: string) {
+    async forgetPassword(forgotpsw: string): Promise<void> {
         return await this.forgotPswclick(forgotpsw).click();
     }
 
-    async resetBtn(restbtn: string) {
+    async resetBtn(restbtn: string): Promise<void> {
         return await this.resetButton(restbtn).click();
     }
 
     
 
-    async clickLoginButton() {
+    async clickLoginButton(): Promise<void> {
         return await this.clickLoginBtn().click();
     }
 
-    async clickRememberMeCheckbox() {
+    async clickRememberMeCheckbox(): Promise<void> {
         return await this.clickRememberMe().click();
     }
 
