@@ -44,26 +44,26 @@ success = (successmessage: string) => this.page.getByText(successmessage);
     return await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
   }
 
-    async enterPassword(password: string) {
+    async enterPassword(password: string): Promise<void> {
        return await this.passwordInput().fill(password);
     }
 
-  async enterEmail(email: string) {
+  async enterEmail(email: string): Promise<void> {
     return await this.emailInput().fill(email);
   }
 
-  async clickMenu(menu: string) {
+  async clickMenu(menu: string): Promise<void> {
    return await this.menuButton(menu).click();
   }
   
-   async clickButton(btn: string) {
+   async clickButton(btn: string): Promise<void> {
 
     return await this.clickBtn(btn).click();
  }
 
 
 
-async selectRole(numberToClick: number = 1) {
+async selectRole(numberToClick: number = 1): Promise<void> {
     // 1. Locate all checkboxes (no Thread.Sleep needed, Playwright waits automatically)
     const checkboxes = this.pickROles();
     
@@ -88,20 +88,20 @@ async selectRole(numberToClick: number = 1) {
 
 
 
-    async enterFirstName() {
+    async enterFirstName(): Promise<void> {
         let {first} = this.generateRandomName();
 
       return await this.firstNameInput().fill(first);
       
     }
 
-    async enterLastName() {
+    async enterLastName(): Promise<void> {
         let {last} = this.generateRandomName();
 
       return await this.lastNameInput().fill(last); 
     }
 
-    async enterDOB() {
+    async enterDOB(): Promise<void> {
         let {year} = this.generateRandomName();
         let {month} = this.generateRandomName();
         let {date} = this.generateRandomName();
@@ -111,21 +111,21 @@ async selectRole(numberToClick: number = 1) {
       
     }
 
-    async password(psw: string) {
+    async password(psw: string): Promise<void> {
         return await this.strongPassword().fill(psw);
       
     }
 
-    async randonmEmail() {
+    async randonmEmail(): Promise<void> {
         let email = `use_${crypto.randomUUID()}@testmail.com`;
    
         return await this.randomemail().fill(email);
     }
-    async clickLoginButton() {
+    async clickLoginButton(): Promise<void> {
         return await this.clickLoginBtn().click();
     }
 
-    async clickRememberMeCheckbox() {
+    async clickRememberMeCheckbox(): Promise<void>  {
         return await this.clickRememberMe().click();
     }
 
