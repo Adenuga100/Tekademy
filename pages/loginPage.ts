@@ -1,29 +1,71 @@
 import { Locator, Page } from "@playwright/test";
+// import { page } from "../hooks/hook";
 // import path from "path";
 // import process from "node:process";
 
 
 export class LoginPage {
+
     constructor(private page: Page) {}
+
     // Define locators as methods
-     passwordInput =() => this.page.locator('input[id="password"]');
-  emailInput = () =>  this.page.locator('input[id="email"]');
-  clickLoginBtn = () =>  this.page.locator('button[type="submit"]');
-  clickRememberMe = () => this.page.locator('input[id="remember"]');
-  pickTime = () => this.page.getByRole('textbox', { name: 'Time' });
-  selectDurations = () => this.page.getByRole('spinbutton', { name: 'Duration (minutes)' });
-  classTitles = () => this.page.locator('input[id="class-title"]');
-  pickDates = () => this.page.getByRole('textbox', { name: 'Date' });
-  homeTitle = () => this.page.locator('img[class="object-contain w-full"]');
- clickBtn = (btn: string) => this.page.locator(`button:has-text("${btn}")`);
- errorLocator = (expectedMessage: string) => this.page.getByText(expectedMessage);
-  success = (successmessage: string) => this.page.getByText(successmessage);
-  menuButton = (menu: string) => 
-    this.page.locator(`span:has-text("${menu}")`);
+    passwordInput() {
+     return this.page.locator('input[id="password"]');
+    }
 
-      generateRandomName() { 
+    emailInput() {
+     return this.page.locator('input[id="email"]');
+    }
 
-        const durations = ["15","30", "40", "60","90","120"];
+    clickLoginBtn() {
+     return this.page.locator('button[type="submit"]');
+    }
+
+    clickRememberMe() {
+     return this.page.locator('input[id="remember"]');
+    }
+
+    homeTitle() {
+     return this.page.locator('img[class="object-contain w-full"]');
+    }
+
+    errorLocator(expectedMessage: string) {
+     return this.   page.getByText(expectedMessage);
+    }
+
+    success(successmessage: string) {
+     return this.page.getByText(successmessage);
+    }
+
+    pickTime() {
+     return this.  page.getByRole('textbox', { name: 'Time' });
+    }
+
+    selectDurations() {
+     return this.page.getByRole('spinbutton', { name: 'Duration (minutes)' });
+    }
+
+    classTitles() {
+     return this.page.locator('input[id="class-title"]');
+    }
+
+    pickDates() {
+     return this.page.getByRole('textbox', { name: 'Date' });
+    }
+    
+    clickBtn(btn: string) {
+     return this.page.locator(`button:has-text("${btn}")`);
+    }
+     
+
+    menuButton( menu: string) {
+        // return this.page.locator(`text=${menu}`);
+        return this.page.getByRole('link', { name: menu });
+    }
+
+    generateRandomName() { 
+
+        const durations = ["15","30", "60","90","120"];
         const mins = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
         const hours = ["01", "02", "03", "04", "05","04","05", "06", "07", "08", "09","10","11", "12","13", "14", "15", "16", "17","18"];
          const newdates = ["1", "2", "3", "4", "5","4","5", "6", "7"];
@@ -38,49 +80,81 @@ export class LoginPage {
         return { duration, min, hour, newdate };
     }
 
-    async navigate() {
-        await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
+     
+
+    async navigate(): Promise<void>  {
+     await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
     }
 
-    async enterPassword(password: string) {
-        return this.passwordInput().fill(password);
+    async enterPassword(password: string): Promise<void>  {
+        return await this.passwordInput().fill(password);
     }
 
-    async enterEmail(email: string) {
-        return this.emailInput().fill(email);
+    async enterEmail(email: string): Promise<void>  {
+        return await this.emailInput().fill(email);
     }
 
-    async clickLoginButton() {
+    async clickLoginButton(): Promise<void> {
         return await this.clickLoginBtn().click();
     }
- async clickMenu(menu: string) {
-   await this.menuButton(menu).scrollIntoViewIfNeeded();
-   return await this.menuButton(menu).click();
-  }
-  
-   async clickButton(btn: string) {
-    await this.clickBtn(btn).scrollIntoViewIfNeeded();
-    return await this.clickBtn(btn).click();
- }
-    async clickRememberMeCheckbox() {
+
+
+ 
+ 
+    async clickRememberMeCheckbox(): Promise<void> {
         return await this.clickRememberMe().click();
     }
 
-    async picktimes() {
+
+    async getHomeTitle(): Promise<Locator> {
+        let homeTitle = await this.homeTitle(); 
+        return homeTitle;
+    }
+
+    async errorMessage(expectedMessage: string): Promise<Locator> {
+        let errorLocator = await this.errorLocator( expectedMessage); 
+        return errorLocator;
+    }
+
+    async successFulMessage(successmessage: string): Promise<Locator> {
+        
+        return await this.success(successmessage);
+    }
+
+   
+    async clickMenu(menu: string): Promise<void> {
+      await this.menuButton( menu).scrollIntoViewIfNeeded();
+      return await this.menuButton(menu).click();
+    }
+
+
+  
+    async clickButton(btn: string): Promise<void>  {
+       await this.clickBtn(btn).scrollIntoViewIfNeeded();
+       return await this.clickBtn(btn).click();
+    }
+   
+
+    async picktimes(): Promise<void>  {
         let { hour, min } = this.generateRandomName();
         return await this.pickTime().fill(`${hour}:${min}`);
     }
-    async selectDuration() {
+
+    async selectDuration(): Promise<void>  {
         let { duration} = this.generateRandomName();
         return await this.selectDurations().fill(`${duration}`);
     }
 
-    async classTitle(classtitle: string) {
+    async enterDuration(dura: string): Promise<void>  {
+        return await this.selectDurations().fill(dura);
+    }
+
+    async classTitle(classtitle: string): Promise<void>  {
         return await this.classTitles().fill(classtitle);
     }
 
-    async selectDate() {
-        let {newdate} = this.generateRandomName();
+    async selectDate(): Promise<void> {
+        let { newdate} = this.generateRandomName();
         const date = new Date();
     
       // Add 2 days (day after tomorrow)
@@ -91,19 +165,42 @@ export class LoginPage {
         return await this.pickDates().fill(formattedDate);
     }
 
-    async getHomeTitle(): Promise<Locator> {
-        let homeTitle = await this.homeTitle(); 
-        return homeTitle;
+
+    
+
+    async alertMessage(alertmessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const dateField = this.page.locator('input[id="class-title"]'); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await dateField.evaluate((el: HTMLInputElement) => el.validationMessage);
     }
 
-    async errorMessage(expectedMessage: string): Promise<Locator> {
-        let errorLocator = await this.errorLocator(expectedMessage); 
-        return errorLocator;
+    async alertDateMessage(alerdateMessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const dateField = this.page.getByRole('textbox', { name: 'Date' }); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await dateField.evaluate((el: HTMLInputElement) => el.validationMessage);
     }
 
-    async successFulMessage(successmessage: string): Promise<Locator> {
-        
-        return await this.success(successmessage);
+    async alertTimeMessage(alertimetmessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const timeField = this.page.getByRole('textbox', { name: 'Time' }); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await timeField.evaluate((el: HTMLInputElement) => el.validationMessage);
+    }
+
+    async alertDurationMessage(alertimetmessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const durationField = this.page.getByRole('spinbutton', { name: 'Duration (minutes)' }); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await durationField.evaluate((el: HTMLInputElement) => el.validationMessage);
     }
 
 }
+
+
+
