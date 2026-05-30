@@ -153,5 +153,10 @@ When('User click on {string} dropdown', async (drop: string) => {
   await loginPage.clickSearchDropdown(drop);
 })
 
+Then('user is unable to click the Add Resource button', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await expect( await loginPage.unClick()).toBeDisabled({ timeout: 5000 });
+})
+
 
 

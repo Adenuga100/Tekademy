@@ -107,6 +107,10 @@ export class LoginPage {
         
         return await this.resultOption(this.storedOption);
     }
+    async unClick(): Promise<Locator> {
+        
+        return await this.clickAddResource();
+    }
 
     async libraryPage(): Promise<Locator> {
         
