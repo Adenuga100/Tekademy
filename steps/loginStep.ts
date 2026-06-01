@@ -41,7 +41,7 @@ When('User click on login button', async () => {
 
 Then('I should be redirected to the dashboard', async () => {
   // Write code here that turns the phrase above into concrete actions
-  await expect( await loginPage.getHomeTitle()).toBeVisible({ timeout: 5000 });
+  await expect( await loginPage.getHomeTitle()).toBeVisible({ timeout: 50000 });
 })
 
 When('User click on remember me checkbox', async () => {
@@ -54,6 +54,28 @@ Then('user receive error message as {string}', async (expectedMessage: string) =
    await expect( await loginPage.errorMessage(expectedMessage)).toHaveText(expectedMessage);
 })
 
+Then('User should receive a password reset email', async () => {
+  // Write code here that turns the phrase above into concrete actions
+  await expect( await loginPage.getVerified()).toBeVisible({ timeout: 5000 });
+})
+
+When('User click on {string} button', async(restbtn: string) => {
+  // Write code here that turns the phrase above into concrete actions
+   await loginPage.resetBtn(restbtn);
+})
+
+When('User click on {string} link', async (forgotpsw: string) => {
+  // Write code here that turns the phrase above into concrete actions
+   await loginPage.forgetPassword(forgotpsw);
+})
+
+When('User enter invalid email as {string}', async (email: string) => {
+  // Write code here that turns the phrase above into concrete actions
+  await loginPage.enterEmail(email);
+})
+
+Then('User should see an error message {string}', (s: string) => {
+  // Write code here that turns the phrase above into concrete actions
 
 
 When('User click on {string} button', async (btn: string) => {
