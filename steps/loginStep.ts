@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from '@playwright/test';
 import { LoginPage } from "../pages/loginPage";
-// import { } from '../hooks/hook';
+import { CustomWorld } from '../hooks/world';
 
 // 1. Declare the variable at the top (without 'this')
 let loginPage: LoginPage;
@@ -11,15 +11,8 @@ Given('I navigate to the login page', async function () {
     await loginPage.navigate();
 });
 
-// Given('I navigate to the login page', async () => {
-//     loginPage = new LoginPage(page);
-//     await loginPage.navigate();
-// });
-
-
-When('User enter valid password as {string}', async function ( pass: string) {
+When('User enter valid password as {string}', async function (pass: string) {
   // Write code here that turns the phrase above into concrete actions
-  // await loginPage.enterPassword(this.page!, pass);
   await loginPage.enterPassword(pass);
 })
 
@@ -36,16 +29,14 @@ When('User click on login button', async () => {
 })
 
 
-
-
 Then('I should be redirected to the dashboard', async () => {
   // Write code here that turns the phrase above into concrete actions
   await expect( await loginPage.getHomeTitle()).toBeVisible({ timeout: 50000 });
 })
 
-When('User click on remember me checkbox', async () => {
+When('User click on remember me checkbox', () => {
   // Write code here that turns the phrase above into concrete actions
-   await loginPage.clickRememberMeCheckbox();
+   loginPage.clickRememberMeCheckbox();
 })
 
 Then('user receive error message as {string}', async (expectedMessage: string) => {
