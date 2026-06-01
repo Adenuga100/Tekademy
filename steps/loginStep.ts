@@ -43,7 +43,7 @@ When('User click on remember me checkbox', () => {
 
 Then('user receive error message as {string}', async (expectedMessage: string) => {
   // Write code here that turns the phrase above into concrete actions
-   await expect( await loginPage.errorMessage(expectedMessage)).toHaveText(expectedMessage);
+   await expect( await loginPage.errorMessage(expectedMessage)).toHaveText(expectedMessage, { timeout: 1000 });
 })
 
 
@@ -67,7 +67,7 @@ When('User enter invalid email as {string}', async (email: string) => {
 
 Then('User should see a success message {string}', async (successmessage: string) => {
   // Write code here that turns the phrase above into concrete actions
-  await expect( await loginPage.successFulMessage(successmessage)).toHaveText(successmessage);
+  await expect( await loginPage.successFulMessage(successmessage)).toHaveText(successmessage, { timeout: 2000 });
 })
 
 

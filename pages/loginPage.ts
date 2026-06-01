@@ -21,7 +21,7 @@ export class LoginPage {
   fillTags = () => this.page.locator('input[id="resource-tags"]');
   fillFileUrl = () => this.page.locator('input[type="url"]');
   files = () => this.page.locator('input[type="file"]');
-  clickFileUrlAndIsPublisheddFile = () => this.page.getByText('— fileUrl, isPublished');
+  clickFileUrlAndIsPublisheddFile = () => this.page.locator('input[type="checkbox"]');
   category = () => this.page.locator('//button[@id="resource-category"]/following-sibling::select');
   homeTitle = () => this.page.locator('img[class="object-contain w-full"]');
  clickBtn = (btn: string) => this.page.locator(`button:has-text("${btn}")`);

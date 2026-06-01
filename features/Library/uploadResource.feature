@@ -15,7 +15,7 @@ Feature: Create an Admin
     And User enter description as "This is a test resource"
     And User enter tags as "test, resource"
     And User upload file "C:\Users\NUGA\Documents\clinc\Chenot Palace Weggis.docx"
-    And User click fileUrl and isPublished
+    # And User click fileUrl and isPublished
     # And User enter fileUrl as "https://example.com/testfile.pdf"
     And User click on Add Resource button
     Then User should see a success message "Resource uploaded"
@@ -42,6 +42,7 @@ Feature: Create an Admin
     And User click on "Upload Resource" button
     And User enter title as "Test Resource"
     And User select category as "Tester"
+    And User upload file "C:\Users\NUGA\Documents\clinc\Chenot Palace Weggis.docx"
     And User click fileUrl and isPublished
     # And User enter fileUrl as "https://example.com/testfile.pdf"
     And User click on Add Resource button
@@ -54,9 +55,9 @@ Feature: Create an Admin
     And User select category as "Tester"
     And User enter description as "This is a test resource"
     And User enter tags as "test, resource"
+    And User upload file "C:\Users\NUGA\Documents\clinc\Chenot Palace Weggis.docx"
     And User click fileUrl and isPublished
     # And User enter fileUrl as "https://example.com/testfile.pdf"
-    And User click on Add Resource button
     # Then user receive error message as "Title must be at least 2 characters."
     Then user is unable to click the Add Resource button
 @5  
@@ -64,25 +65,21 @@ Scenario: upload library resource  with empty category
     When User click on "Library" menu
     And User click on "Upload Resource" button
     And User enter title as "Test Resource"
-    And User select category as "Tester"
     And User enter description as "This is a test resource"
     And User enter tags as "test, resource"
+    And User upload file "C:\Users\NUGA\Documents\clinc\Chenot Palace Weggis.docx"
     And User click fileUrl and isPublished
     # And User enter fileUrl as "https://example.com/testfile.pdf"
-    And User click on Add Resource button
     # Then user receive error message as "Select a category."
     Then user is unable to click the Add Resource button
 
 @6 
-Scenario: upload library resource  with empty url
+Scenario: upload library resource  with empty file upload 
   When User click on "Library" menu
   And User click on "Upload Resource" button
   And User enter title as "Test Resource"
   And User enter description as "This is a test resource"
   And User enter tags as "test, resource"
-  And User click fileUrl and isPublished
-  And User click on Add Resource button
-  # Then user receive error message as "Add a public file URL."
   Then user is unable to click the Add Resource button
 @7
   Scenario: Repalace file upload
@@ -94,7 +91,7 @@ Scenario: upload library resource  with empty url
   And User enter tags as "test, resource"
   And User upload file "C:\Users\NUGA\Documents\clinc\Chenot Palace Weggis.docx"
   And User upload file "C:\Users\NUGA\Documents\clinc\Fountain Life.docx"
-  And User click fileUrl and isPublished
+  # And User click fileUrl and isPublished
   # And User enter fileUrl as "https://example.com/testfile.pdf"
   And User click on Add Resource button
   Then User should see a success message "Resource uploaded"
@@ -108,7 +105,8 @@ Scenario: upload library resource  with empty url
   And User enter tags as "test, resource"
   And User upload file "C:\Users\NUGA\Documents\clinc\Chenot Palace Weggis.docx"
   And User click on "Remove" button
-  And User click fileUrl and isPublished
+  And User upload file "C:\Users\NUGA\Documents\clinc\Fountain Life.docx"
+  # And User click fileUrl and isPublished
   # And User enter fileUrl as "https://example.com/testfile.pdf"
   And User click on Add Resource button
   Then User should see a success message "Resource uploaded"
@@ -141,6 +139,20 @@ Scenario: upload library resource  with empty url
   And User click on x button
   Then User should be redirected to library page
 @11
+  Scenario: upload library resource video less than 50MB
+    When User click on "Library" menu
+    And User click on "Upload Resource" button
+    And User enter title as "Test Resource"
+    And User select category as "Tester"
+    And User enter description as "This is a test resource"
+    And User enter tags as "test, resource"
+    And User upload file "c:\Users\NUGA\Videos\IMG_5567.MOV"
+    And User click fileUrl and isPublished
+    # And User enter fileUrl as "https://example.com/testfile.pdf"
+    And User click on Add Resource button
+    Then user receive error message as "File must be at most 50 MB."
+    
+@12
   Scenario: upload library resource video successfully
     When User click on "Library" menu
     And User click on "Upload Resource" button
