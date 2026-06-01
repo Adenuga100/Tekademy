@@ -8,38 +8,7 @@ export class LoginPage {
 
     constructor(private page: Page) {}
 
-<<<<<<< HEAD
-   // Locators
-  passwordInput =() => this.page.locator('input[id="password"]');
-  emailInput = () =>  this.page.locator('input[id="email"]');
-  clickLoginBtn = () =>  this.page.locator('button[type="submit"]');
-  clickRememberMe = () => this.page.locator('input[id="remember"]');
-  fillTitle = () => this.page.locator('input[id="resource-title"]');
-  clickAddResource = () => this.page.locator('button[type="submit"]');
-  unCheck = () => this.page.locator('input[type="checkbox"]');
-  fillTittleOrUrl = () => this.page.locator('input[placeholder="Search resources by title or URL..."]');
-  selectOptionLocator = (options: string) => this.page.getByRole('option', { name: `${options}` }).first(); // Adjust the locator as needed
-  selectOption = () => this.page.locator('select[id="resource-category"]');
-  closeX = () => this.page.locator('button[data-slot="dialog-close"]');
-  fillDescription = () => this.page.locator('textarea[id="resource-description"]');
-  fillTags = () => this.page.locator('input[id="resource-tags"]');
-  fillFileUrl = () => this.page.locator('input[type="url"]');
-  files = () => this.page.locator('input[type="file"]');
-  clickFileUrlAndIsPublisheddFile = () => this.page.locator('input[type="checkbox"]');
-  category = () => this.page.locator('//button[@id="resource-category"]/following-sibling::select');
-  homeTitle = () => this.page.locator('img[class="object-contain w-full"]');
- clickBtn = (btn: string) => this.page.locator(`button:has-text("${btn}")`);
- clickDropdownse = (drop: string) => this.page.getByRole('combobox').filter({ hasText: `${drop}` });
- errorLocator = (expectedMessage: string) => this.page.getByText(expectedMessage);
-  success = (successmessage: string) => this.page.getByText(successmessage);
-  resultTitles = (titleorurl: string) => this.page.locator('p[class="font-medium text-[#111827]"]').first();
-  resultOption = (option: string) => this.page.locator(`//td[@data-slot="table-cell"]//span[text()='${option}']`).first();
-  libraryPages = () => this.page.getByText('Library & Resources');
-  menuButton = (menu: string) => 
-    this.page.locator(`span:has-text("${menu}")`);
-//span[text()="${menu}"]
- // Drop the 'function' keyword
-=======
+
     // Define locators as methods
     passwordInput() {
      return this.page.locator('input[id="password"]');
@@ -49,12 +18,79 @@ export class LoginPage {
      return this.page.locator('input[id="email"]');
     }
 
+    clickDropdownse(drop: string) {
+     return this.page.getByRole('combobox').filter({ hasText: `${drop}` });
+    }
+
+    selectOptionLocator(options: string) {
+        return this.page.getByRole('option', { name: `${options}` }).first(); // Adjust the locator as needed
+    }
+
+    files() {
+     return this.page.locator('input[type="file"]');
+    }
+
+    clickFileUrlAndIsPublisheddFile() {
+     return this.page.locator('input[type="checkbox"]');
+    }
+
+    closeX() {
+     return this.page.locator('button[data-slot="dialog-close"]');
+    }
+
     clickLoginBtn() {
      return this.page.locator('button[type="submit"]');
     }
 
+    fillTitle() {
+     return this.page.locator('input[id="resource-title"]');
+    }
+
+    category() {
+        return this.page.locator('//button[@id="resource-category"]/following-sibling::select');
+    }
+    // clickAddResource() {
+    //  return this.page.locator('button[type="submit"]');
+    // }
+    // unCheck() {
+    //  return this.page.locator('input[type="checkbox"]');
+    // }
+    fillTittleOrUrl() {
+      return this.page.locator('input[placeholder="Search resources by title or URL..."]');
+    }
+
+    resultTitles(titleorurl: string) {
+     return this.page.locator('p[class="font-medium text-[#111827]"]').first();
+    }
+
+    resultOption(option: string) {
+     return this.page.locator(`//td[@data-slot="table-cell"]//span[text()='${option}']`).first();
+    }
+
+    fillDescription() {
+     return this.page.locator('textarea[id="resource-description"]');
+    }
+
+    fillTags() {
+     return this.page.locator('input[id="resource-tags"]');
+    }
+
+    fillFileUrl() {
+     return this.page.locator('input[type="url"]');
+    }
+    libraryPages() {
+     return this.page.getByText('Library & Resources');
+    }
     clickRememberMe() {
      return this.page.locator('input[id="remember"]');
+    }
+
+    clickAddResource() {
+     return this.page.locator('button[type="submit"]');
+    }
+
+    unCheck() {
+     return this.page.locator('input[type="checkbox"]');
     }
 
     homeTitle() {
@@ -95,7 +131,7 @@ export class LoginPage {
         return this.page.getByRole('link', { name: menu });
     }
 
->>>>>>> 303c0beb4d010cd94c33b0ec7e72a39edd08035e
+
     generateRandomName() { 
 
         const durations = ["15","30", "60","90","120"];
@@ -119,9 +155,7 @@ export class LoginPage {
      await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
     }
   // Actions
-  async navigate() {
-    return await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
-  }
+ 
 
     async enterPassword(password: string): Promise<void>  {
         return await this.passwordInput().fill(password);
@@ -158,15 +192,29 @@ export class LoginPage {
         return await this.success(successmessage);
     }
 
+    storedTitleOrUrls: string = '';
+
+
+    async enterSearchTerm(titleorurl: string): Promise<void> {
+
+
+       await this.fillTittleOrUrl().fill(titleorurl);
+
+        // this.storedTitleOrUrl = await this.fillTittleOrUrl().getAttribute('value') || '';
+        this.storedTitleOrUrls = titleorurl;
+    }
+
     async resultTitle(): Promise<Locator> {
         
-        return await this.resultTitles(this.storedTitleOrUrl);
+        return  await this.resultTitles(this.storedTitleOrUrls);
     }
 
     async resultOptions(): Promise<Locator> {
-        
+
+
         return await this.resultOption(this.storedOption);
     }
+
     async unClick(): Promise<Locator> {
         
         return await this.clickAddResource();
@@ -179,85 +227,74 @@ export class LoginPage {
 
    
 
-    async enterTitle(title: string) {
+    async enterTitle(title: string) : Promise<void> {
         return await this.fillTitle().fill(title);
     }
 
-    async addResource() {
+    async addResource(): Promise<void> {
         await this.clickAddResource().scrollIntoViewIfNeeded();
         return await this.clickAddResource().click();
     }
 
-    async uncheckPublish() {
+    async uncheckPublish(): Promise<void> {
         await this.unCheck().scrollIntoViewIfNeeded();
+        
         return await this.unCheck().click();
     }
 
-    async close() {
+    async close(): Promise<void> {
       
         return await this.closeX().click();
     }
 
-    async clickSearchDropdown(drop: string) {
+    async clickSearchDropdown(drop: string): Promise<void> {
       
         return await this.clickDropdownse(drop).click();
     }
     
 
-storedTitleOrUrl: string = '';
 
-async enterSearchTerm(titleorurl: string) {
-
-    await this.fillTittleOrUrl().fill(titleorurl);
-
-    this.storedTitleOrUrl = await this.fillTittleOrUrl().getAttribute('value') || '';
-}
 
 storedOption: string = '';
 
 
-async selectSearchOption(option: string) {
+async selectSearchOption(option: string): Promise<void> {
     // Click the element using the locator
     await this.selectOptionLocator(option).click();
 
     // Store the value you just clicked for verification later
     this.storedOption = option; 
-  }
-
-
-async selectCategory(category: string) {
-     return await this.category().selectOption({ label: category });
 }
 
-    async enterDescription(description: string) {
-        await this.fillDescription().scrollIntoViewIfNeeded();
-        return await this.fillDescription().fill(description);
-    }
 
-    async enterFileUrl(fileUrl: string) {
-        await this.fillFileUrl().scrollIntoViewIfNeeded();
-        return await this.fillFileUrl().fill(fileUrl);
-    }
-    async enterTags(description: string) {
+async selectCategory(category: string): Promise<void> {
+     await this.category().selectOption({ label: category });
+}
+
+async enterDescription(description: string): Promise<void> {
+    await this.fillDescription().scrollIntoViewIfNeeded();
+    return await this.fillDescription().fill(description);
+}
+
+async enterFileUrl(fileUrl: string): Promise<void> {
+    await this.fillFileUrl().scrollIntoViewIfNeeded();
+    return await this.fillFileUrl().fill(fileUrl);
+}
+
+    async enterTags(description: string): Promise<void> {
         await this.fillTags().scrollIntoViewIfNeeded();
         return await this.fillTags().fill(description);
     }
 
-    async uploadFile(filename: string) {
+    async uploadFile(filename: string): Promise<void> {
         await this.files().scrollIntoViewIfNeeded();
         return await this.files().setInputFiles(filename);
     }
 
-    async clickFileUrlAndIsPublished() {
+    async clickFileUrlAndIsPublished(): Promise<void> {
         await this.clickFileUrlAndIsPublisheddFile().scrollIntoViewIfNeeded();
         return await this.clickFileUrlAndIsPublisheddFile().click();
     }
-
-    async successFulMessage(successmessage: string): Promise<Locator> {
-        
-        return await this.success(successmessage);
-    }
-
    
     async clickMenu(menu: string): Promise<void> {
       await this.menuButton( menu).scrollIntoViewIfNeeded();
@@ -270,38 +307,6 @@ async selectCategory(category: string) {
        await this.clickBtn(btn).scrollIntoViewIfNeeded();
        return await this.clickBtn(btn).click();
     }
-   
-
-    async picktimes(): Promise<void>  {
-        let { hour, min } = this.generateRandomName();
-        return await this.pickTime().fill(`${hour}:${min}`);
-    }
-
-    async selectDuration(): Promise<void>  {
-        let { duration} = this.generateRandomName();
-        return await this.selectDurations().fill(`${duration}`);
-    }
-
-    async enterDuration(dura: string): Promise<void>  {
-        return await this.selectDurations().fill(dura);
-    }
-
-    async classTitle(classtitle: string): Promise<void>  {
-        return await this.classTitles().fill(classtitle);
-    }
-
-    async selectDate(): Promise<void> {
-        let { newdate} = this.generateRandomName();
-        const date = new Date();
-    
-      // Add 2 days (day after tomorrow)
-      date.setDate(date.getDate() + parseInt(`${newdate}`));
-
-     // Format as YYYY-MM-DD
-      const formattedDate = date.toISOString().split('T')[0];
-        return await this.pickDates().fill(formattedDate);
-    }
-
 
     
 

@@ -9,7 +9,7 @@ Feature: Create an Admin
 @search1
   Scenario: search library resource with title or url 
     When User click on "Library" menu
-    And User enter title or url as "Buchinger Wilhelmi"
+    And User enter title or url as "Test Resource"
     Then User should see the search result with title
 
 @search2
