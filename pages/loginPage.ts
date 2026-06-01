@@ -85,6 +85,10 @@ export class LoginPage {
     async navigate(): Promise<void>  {
      await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
     }
+  // Actions
+  async navigate() {
+    return await this.page.goto('https://tk-academy-admin.vercel.app/auth/login');
+  }
 
     async enterPassword(password: string): Promise<void>  {
         return await this.passwordInput().fill(password);
@@ -107,13 +111,113 @@ export class LoginPage {
 
 
     async getHomeTitle(): Promise<Locator> {
-        let homeTitle = await this.homeTitle(); 
-        return homeTitle;
+        
+        return await this.homeTitle();
     }
 
     async errorMessage(expectedMessage: string): Promise<Locator> {
-        let errorLocator = await this.errorLocator( expectedMessage); 
-        return errorLocator;
+        await this.errorLocator(expectedMessage).scrollIntoViewIfNeeded();
+        return await this.errorLocator(expectedMessage);
+    }
+
+    async successFulMessage(successmessage: string): Promise<Locator> {
+        
+        return await this.success(successmessage);
+    }
+
+    async resultTitle(): Promise<Locator> {
+        
+        return await this.resultTitles(this.storedTitleOrUrl);
+    }
+
+    async resultOptions(): Promise<Locator> {
+        
+        return await this.resultOption(this.storedOption);
+    }
+    async unClick(): Promise<Locator> {
+        
+        return await this.clickAddResource();
+    }
+
+    async libraryPage(): Promise<Locator> {
+        
+        return await this.libraryPages();
+    }
+
+   
+
+    async enterTitle(title: string) {
+        return await this.fillTitle().fill(title);
+    }
+
+    async addResource() {
+        await this.clickAddResource().scrollIntoViewIfNeeded();
+        return await this.clickAddResource().click();
+    }
+
+    async uncheckPublish() {
+        await this.unCheck().scrollIntoViewIfNeeded();
+        return await this.unCheck().click();
+    }
+
+    async close() {
+      
+        return await this.closeX().click();
+    }
+
+    async clickSearchDropdown(drop: string) {
+      
+        return await this.clickDropdownse(drop).click();
+    }
+    
+
+storedTitleOrUrl: string = '';
+
+async enterSearchTerm(titleorurl: string) {
+
+    await this.fillTittleOrUrl().fill(titleorurl);
+
+    this.storedTitleOrUrl = await this.fillTittleOrUrl().getAttribute('value') || '';
+}
+
+storedOption: string = '';
+
+
+async selectSearchOption(option: string) {
+    // Click the element using the locator
+    await this.selectOptionLocator(option).click();
+
+    // Store the value you just clicked for verification later
+    this.storedOption = option; 
+  }
+
+
+async selectCategory(category: string) {
+     return await this.category().selectOption({ label: category });
+}
+
+    async enterDescription(description: string) {
+        await this.fillDescription().scrollIntoViewIfNeeded();
+        return await this.fillDescription().fill(description);
+    }
+
+    async enterFileUrl(fileUrl: string) {
+        await this.fillFileUrl().scrollIntoViewIfNeeded();
+        return await this.fillFileUrl().fill(fileUrl);
+    }
+    async enterTags(description: string) {
+        await this.fillTags().scrollIntoViewIfNeeded();
+        return await this.fillTags().fill(description);
+    }
+
+    async uploadFile(filename: string) {
+        await this.files().scrollIntoViewIfNeeded();
+        return await this.files().setInputFiles(filename);
+    }
+
+    async clickFileUrlAndIsPublished() {
+        await this.clickFileUrlAndIsPublisheddFile().scrollIntoViewIfNeeded();
+        return await this.clickFileUrlAndIsPublisheddFile().click();
     }
 
     async successFulMessage(successmessage: string): Promise<Locator> {
