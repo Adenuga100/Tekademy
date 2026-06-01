@@ -62,9 +62,6 @@ When('User click on {string} button', async function (btn: string) {
 })
 
 
-// When('User click on {string} menu', async (menus: string) => {
-//   await loginPage.clickMenu(page, menus);
-// })
 
 
 When('User click on {string} menu', async (menus: string) => {
