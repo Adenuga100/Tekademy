@@ -11,4 +11,3 @@ Feature: Forgot Password Functionality
     When User click on "Forgot Password?" link
     And User enter invalid email as "admin@kdemy"
     And User click on "Reset Password" button
-    #Then User should see an error message "Please enter a valid email address."
