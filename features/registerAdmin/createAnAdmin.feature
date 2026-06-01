@@ -2,11 +2,11 @@
 Feature: Create an Admin
     Background: Successful login with valid credentials
     Given I navigate to the login page
-    When User enter valid email as "admin@tekademy.io" 
+    When User enter valid email as "superAdmin@tekademy.io" 
     And User enter valid password as "Password123!"
-    And User click on login button
+     And User click on "Continue with this email" button
 
-
+@1
   Scenario: Successful registration with valid credentials
     When User click on "User Management" menu
     And User click on "Add New User" button
@@ -30,4 +30,5 @@ Feature: Create an Admin
     And User enter DOB
     And User select any role
     And User click on "Add User" button
+    
     Then User should see a success message "User created successfully"
