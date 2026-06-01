@@ -30,4 +30,5 @@ Feature: Create an Admin
     And User enter DOB
     And User select any role
     And User click on "Add User" button
+    
     Then User should see a success message "User created successfully"
