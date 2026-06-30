@@ -19,6 +19,7 @@ export class LoginPage {
 //  clickBtn = (btn: string) => this.page.locator(`button:has-text("${btn}")`);
 //  errorLocator = (expectedMessage: string) => this.page.getByText(expectedMessage);
 
+
     // Define locators as methods
     passwordInput() {
      return this.page.locator('input[id="password"]');
@@ -28,10 +29,83 @@ export class LoginPage {
      return this.page.locator('input[id="email"]');
     }
 
-    
+<<<<<<< HEAD
+    clickDropdownse(drop: string) {
+     return this.page.getByRole('combobox').filter({ hasText: `${drop}` });
+    }
 
+    selectOptionLocator(options: string) {
+        return this.page.getByRole('option', { name: `${options}` }).first(); // Adjust the locator as needed
+    }
+
+    files() {
+     return this.page.locator('input[type="file"]');
+    }
+
+    clickFileUrlAndIsPublisheddFile() {
+     return this.page.locator('input[type="checkbox"]');
+    }
+
+    closeX() {
+     return this.page.locator('button[data-slot="dialog-close"]');
+    }
+
+    clickLoginBtn() {
+     return this.page.locator('button[type="submit"]');
+    }
+=======
+    
+>>>>>>> origin/main
+
+    fillTitle() {
+     return this.page.locator('input[id="resource-title"]');
+    }
+
+    category() {
+        return this.page.locator('//button[@id="resource-category"]/following-sibling::select');
+    }
+    // clickAddResource() {
+    //  return this.page.locator('button[type="submit"]');
+    // }
+    // unCheck() {
+    //  return this.page.locator('input[type="checkbox"]');
+    // }
+    fillTittleOrUrl() {
+      return this.page.locator('input[placeholder="Search resources by title or URL..."]');
+    }
+
+    resultTitles(titleorurl: string) {
+     return this.page.locator('p[class="font-medium text-[#111827]"]').first();
+    }
+
+    resultOption(option: string) {
+     return this.page.locator(`//td[@data-slot="table-cell"]//span[text()='${option}']`).first();
+    }
+
+    fillDescription() {
+     return this.page.locator('textarea[id="resource-description"]');
+    }
+
+    fillTags() {
+     return this.page.locator('input[id="resource-tags"]');
+    }
+
+    fillFileUrl() {
+     return this.page.locator('input[type="url"]');
+    }
+    libraryPages() {
+     return this.page.getByText('Library & Resources');
+    }
     clickRememberMe() {
      return this.page.locator('input[id="remember"]');
+    }
+
+    clickAddResource() {
+     return this.page.locator('button[type="submit"]');
+    }
+
+    unCheck() {
+     return this.page.locator('input[type="checkbox"]');
     }
 
     homeTitle() {
@@ -98,6 +172,7 @@ export class LoginPage {
         // return this.page.locator(`text=${menu}`);
         return this.page.getByRole('link', { name: menu });
     }
+
 
     generateRandomName() { 
 
@@ -217,7 +292,159 @@ async selectRole(numberToClick: number = 1): Promise<void> {
         return await this.success(successmessage);
     }
 
+<<<<<<< HEAD
+    storedTitleOrUrls: string = '';
 
+
+    async enterSearchTerm(titleorurl: string): Promise<void> {
+
+
+       await this.fillTittleOrUrl().fill(titleorurl);
+
+        // this.storedTitleOrUrl = await this.fillTittleOrUrl().getAttribute('value') || '';
+        this.storedTitleOrUrls = titleorurl;
+    }
+
+    async resultTitle(): Promise<Locator> {
+        
+        return  await this.resultTitles(this.storedTitleOrUrls);
+    }
+
+    async resultOptions(): Promise<Locator> {
+
+
+        return await this.resultOption(this.storedOption);
+    }
+
+    async unClick(): Promise<Locator> {
+        
+        return await this.clickAddResource();
+    }
+
+    async libraryPage(): Promise<Locator> {
+        
+        return await this.libraryPages();
+    }
+
+   
+
+    async enterTitle(title: string) : Promise<void> {
+        return await this.fillTitle().fill(title);
+    }
+
+    async addResource(): Promise<void> {
+        await this.clickAddResource().scrollIntoViewIfNeeded();
+        return await this.clickAddResource().click();
+    }
+
+    async uncheckPublish(): Promise<void> {
+        await this.unCheck().scrollIntoViewIfNeeded();
+        
+        return await this.unCheck().click();
+    }
+
+    async close(): Promise<void> {
+      
+        return await this.closeX().click();
+    }
+
+    async clickSearchDropdown(drop: string): Promise<void> {
+      
+        return await this.clickDropdownse(drop).click();
+    }
+    
+
+
+
+storedOption: string = '';
+
+
+async selectSearchOption(option: string): Promise<void> {
+    // Click the element using the locator
+    await this.selectOptionLocator(option).click();
+
+    // Store the value you just clicked for verification later
+    this.storedOption = option; 
+}
+
+
+async selectCategory(category: string): Promise<void> {
+     await this.category().selectOption({ label: category });
+}
+
+async enterDescription(description: string): Promise<void> {
+    await this.fillDescription().scrollIntoViewIfNeeded();
+    return await this.fillDescription().fill(description);
+}
+
+async enterFileUrl(fileUrl: string): Promise<void> {
+    await this.fillFileUrl().scrollIntoViewIfNeeded();
+    return await this.fillFileUrl().fill(fileUrl);
+}
+
+    async enterTags(description: string): Promise<void> {
+        await this.fillTags().scrollIntoViewIfNeeded();
+        return await this.fillTags().fill(description);
+    }
+
+    async uploadFile(filename: string): Promise<void> {
+        await this.files().scrollIntoViewIfNeeded();
+        return await this.files().setInputFiles(filename);
+    }
+
+    async clickFileUrlAndIsPublished(): Promise<void> {
+        await this.clickFileUrlAndIsPublisheddFile().scrollIntoViewIfNeeded();
+        return await this.clickFileUrlAndIsPublisheddFile().click();
+    }
+   
+    async clickMenu(menu: string): Promise<void> {
+      await this.menuButton( menu).scrollIntoViewIfNeeded();
+      return await this.menuButton(menu).click();
+    }
+
+
+  
+    async clickButton(btn: string): Promise<void>  {
+       await this.clickBtn(btn).scrollIntoViewIfNeeded();
+       return await this.clickBtn(btn).click();
+    }
+
+    
+
+    async alertMessage(alertmessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const dateField = this.page.locator('input[id="class-title"]'); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await dateField.evaluate((el: HTMLInputElement) => el.validationMessage);
+    }
+
+    async alertDateMessage(alerdateMessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const dateField = this.page.getByRole('textbox', { name: 'Date' }); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await dateField.evaluate((el: HTMLInputElement) => el.validationMessage);
+    }
+
+    async alertTimeMessage(alertimetmessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const timeField = this.page.getByRole('textbox', { name: 'Time' }); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await timeField.evaluate((el: HTMLInputElement) => el.validationMessage);
+    }
+
+    async alertDurationMessage(alertimetmessage: string): Promise<string> {
+      // 1. Locate the specific input element (e.g., your email or password input)
+      const durationField = this.page.getByRole('spinbutton', { name: 'Duration (minutes)' }); // Adjust the selector as needed
+    
+      // 2. Evaluate and return the HTML5 validation message string
+      return await durationField.evaluate((el: HTMLInputElement) => el.validationMessage);
+    }
+=======
+
+>>>>>>> origin/main
 
 }
 
